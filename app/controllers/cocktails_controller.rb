@@ -17,6 +17,7 @@ class CocktailsController < ApplicationController
   end
 
   def show
+    @review = Review.new
     @dose = Dose.new
     @cocktail = Cocktail.find(params[:id])
   end

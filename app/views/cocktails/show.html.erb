@@ -30,9 +30,34 @@
       <%= link_to "back to cocktails", cocktails_path %>
     </div>
     <div class="col-sm-12 col-md-6">
-      <%= render "doses/new", cocktail: @cocktail, dose: @dose %>
+      <%= render "shared/form", cocktail: @cocktail, dose: @dose, class: "dose-form" %>
     </div>
   </div>
+  <div>
+    <h4 class="index_title">Reviews</h4>
+    <% if @cocktail.reviews.empty? %>
+      <p>Be the first to leave a review!</p>
+    <% else %>
+      <ul class="ratings">
+        <% @cocktail.reviews.each do |review| %>
+          <li class="doses">
+            <span>
+              <% counter = 0 %>
+              <% 5.times do %>
+                <i class="fa <%= review.rating > counter ? 'fa-star' : 'fa-star-o' %>"></i>
+                <% counter += 1 %>
+              <% end %>
+            </span>
+            <%= review.content %>
+            <%= link_to review_path(review), method: :delete do %>
+              <i class="fa fa-trash destroy_review"></i>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <%= render 'shared/form_review', cocktail: @cocktail, review: @review %>
 </div>
 
 
